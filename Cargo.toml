@@ -1,0 +1,9 @@
+[package]
+name = "flawnt"
+version = "0.1.0"
+authors = ["Lucas Timmins <timmins.s.lucas@gmail.com>"]
+
+[dependencies]
+xdg = "2.1.0"
+quick-xml = "0.12.0"
+walkdir = "2.0"
