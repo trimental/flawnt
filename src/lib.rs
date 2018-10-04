@@ -100,6 +100,25 @@ impl FontConfig {
         }
         Ok(fonts)
     }
+
+    pub fn get_font_dir_files(&self) -> Result<Vec<PathBuf>, std::io::Error> {
+        let mut fonts = Vec::new();
+        for dir in self.get_font_dirs() {
+            for file in WalkDir::new(dir)
+                .into_iter()
+                .filter_map(|e| e.ok())
+                .filter(|p| p.file_type().is_file())
+            {
+                let path = file.into_path();
+                if let Some(file_name) = path.clone().file_name() {
+                    if file_name.to_str() == Some("fonts.dir") {
+                        fonts.push(path);
+                    }
+                }
+            }
+        }
+        Ok(fonts)
+    }
 }
 #[cfg(test)]
 mod tests {
